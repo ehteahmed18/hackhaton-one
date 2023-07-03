@@ -13,6 +13,7 @@ const getProduct = async () => {
         image,
         _id,
         price,
+        ref,
         description,
         "categoryName":category -> name
     }`)
@@ -22,6 +23,7 @@ const getProduct = async () => {
 interface Product {
     title: string,
     image: IImage,
+    ref:string,
     price: number,
     _id: string,
     description: string,
@@ -40,14 +42,14 @@ export default async function Product() {
             <div className="w-full ">
                 <div className="xl:max-w-6xl  mx-auto grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-2 gap-y-20 px-10 ssm:px-16  md:px-16 lg:px-6 xl:m-auto  pt-10 ">
                     {data1.map((item) => (
-                        <div key={item._id} className="lg:w-9/12 md:w-11/12 ">
+                        <a href={item.ref} key={item._id} className="lg:w-9/12 md:w-11/12 ">
                             <div  className="   flex flex-col items-start justify-center  ">
-                                <Image src={urlForImage(item.image).url()} alt="product" width={200} height={100} className="sm:h-[250px] m-auto w-screen lg:w-[270px] md:w-[340px] h-fit" />
+                                <Image src={urlForImage(item.image).url()} alt="product" width={200} height={100} className="sm:h-[280px] m-auto w-screen lg:w-[270px] md:w-[340px] h-fit" />
                                 <p className="sm:text-lg font-semibold mt-2 pl-2">{item.title}</p>
                                 <p className=" text-sm font-semibold mt-2 pl-2 text-gray-600">{item.description}</p>
                                 <p className="sm:text-xl mt-3 font-semibold pl-2">${item.price}</p>
                             </div>
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>

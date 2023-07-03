@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Navbar from './components/Navbar'
 import  Main  from "./components/Main"
 import Event from './components/Event'
-import Product from './components/Product'
 import { Unique } from './components/Unique'
 import Products from './components/Products'
 import Newsletter from './components/Newsletter'

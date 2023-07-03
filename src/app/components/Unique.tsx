@@ -5,7 +5,7 @@ import Image from "next/image";
 export const Unique = () => {
     return (
         <div className="w-full  mt-16 bg-gray-50 py-10">
-            <div className="xl:max-w-6xl mx-auto  flex flex-col ">
+            <div className="xl:max-w-7xl mx-auto  flex flex-col ">
                 <div className="w-full flex xl:justify-end md:justify-center lg:items-center">
                     <h1 className="lg:text-5xl md:text-4xl md:px-4 xl:px-0 lg:px-4 md:w-8/12 w-5/12 text-3xl px-6 xl:w-5/12 font-bold">Unique and Authentic Vintage Designer Jewellery</h1>
                 </div>
@@ -33,7 +33,7 @@ export const Unique = () => {
                         <div className=" xl:max-w-[50%] m-auto md:m-0">
                             <Image src="/feature.png" alt="" width={270} height={100} className="xl:py-4" />
                         </div>
-                        <div className=" lg:max-w-[60%] xl:max-w-[50%] md:max-w-[50%] md:py-4 py-8 xl:py-2 flex flex-col gap-y-10 items-start md:justify-center">
+                        <div className=" lg:max-w-[60%] xl:max-w-[50%] md:max-w-[50%] md:py-4 py-8 xl:py-2 flex flex-col space-y-10 items-start md:justify-center">
                             <p>This piece is ethically crafted in our small family-owned workshop in Peru with unmatched attention to detail and care. The Natural color is the actual natural color of the fiber, undyed and 100% traceable.</p>
                             <button  className="xl:max-w-[50%] md:w-[40%] w-[50%] bg-gray-900 text-white text-center p-3 text-sm border-2 border-t-gray-500 border-l-gray-500 border-r-black border-b-black"><a href="/products">See All Products</a></button>
                         </div>

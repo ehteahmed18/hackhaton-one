@@ -6,13 +6,13 @@ import {FaTwitter,FaFacebookF,FaLinkedinIn} from "react-icons/fa"
 export default function Footer() {
     return (
         <div className="w-full  mt-5">
-            <div className="xl:max-w-6xl  mx-auto px-6 md:px-10 lg:px-6 flex lg:flex-nowrap flex-wrap py-20 lg:gap-y-0 gap-y-8">
+            <div className="xl:max-w-7xl  mx-auto px-6 md:px-10 lg:px-6 flex lg:flex-nowrap flex-wrap py-20 lg:space-y-0 space-y-8">
                 <div className="lg:w-4/12 md:w-6/12 w-full space-y-10">
                     <div className=" flex font-bold  xl:text-2xl text-lg items-center ">
                         <Image src="/Logo.png" alt="" width={200} height={100} />
                     </div>
                     <p className="text-lg text-gray-600">Small, artisan label that offers a thoughtfully curated collection of high quality everyday essentials made.</p>
-                    <div className="w-full flex gap-x-4">
+                    <div className="w-full flex space-x-4">
                         <a href="" className=" bg-gray-200 rounded-md">
                         <FaTwitter className="md:text-5xl text-4xl md:p-3 p-2"/>
                         </a>
@@ -24,7 +24,7 @@ export default function Footer() {
                         </a>
                     </div>
                 </div>
-                <div className="lg:w-8/12 w-full  flex lg:justify-evenly lg:flex-nowrap flex-wrap lg:gap-y-0 gap-y-4">
+                <div className="lg:w-8/12 w-full  flex lg:justify-evenly lg:flex-nowrap flex-wrap lg:space-y-0 space-y-4">
                     <div className="lg:w-3/12 w-full  space-y-6">
                         <h1 className="text-2xl font-bold text-gray-600">Company</h1>
                         <ul className="text-gray-600 text-lg space-y-2">

@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export const product = {
     name:"product",
     type:"document",
@@ -22,6 +24,11 @@ export const product = {
             name:"price",
             title:"Product Price",
             type:"number"
+        },
+        {
+            name:"ref",
+            title:"Product Ref",
+            type:"string"
         },
         {
             name:"category",

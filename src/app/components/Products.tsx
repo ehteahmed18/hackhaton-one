@@ -35,7 +35,7 @@ export default async function Products() {
     // console.log(data)
     return (
         <div className="xl:max-w-7xl mx-auto  mt-16">
-            <div className=" xl:max-w-7xl flex flex-col items-center justify-center  mx-auto">
+            <div className=" 2xl:max-w-7xl xl:max-w-6xl flex flex-col items-center justify-center  mx-auto">
                 <h1 className="text-blue-600 text-sm font-semibold mb-3">PRODUCTS</h1>
                 <p className="sm:text-4xl text-2xl font-bold">Check What We Have</p>
             </div>

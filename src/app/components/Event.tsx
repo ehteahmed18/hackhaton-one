@@ -5,11 +5,11 @@ import Image from "next/image"
 export default function Event(){
     return(
         <div className="w-full mt-16 ">
-            <div className="xl:max-w-7xl flex flex-col items-center justify-center  mx-auto">
+            <div className=" 2xl:max-w-7xl xl:max-w-6xl flex flex-col items-center justify-center  mx-auto">
                 <h1 className="text-blue-600 text-sm font-semibold mb-3">PROMOTIONS</h1>
                 <p className="sm:text-4xl text-2xl font-bold">Our Promotions Events</p>
             </div>
-            <div className="xl:max-w-7xl px-6 md:px-10 lg:px-6 flex lg:flex-nowrap flex-wrap gap-x-8 lg:space-y-0 space-y-8 py-12 mx-auto">
+            <div className="2xl:max-w-7xl xl:max-w-6xl px-6 md:px-10 lg:px-6 flex lg:flex-nowrap flex-wrap gap-x-8 lg:space-y-0 space-y-8 py-12 mx-auto">
                 <div className="lg:w-5/12 w-full flex flex-col lg:space-y-4 space-y-8 ">
                     <div className="w-full flex justify-center md:items-center bg-gray-200 ">
                         <div className="w-6/12 py-8 pl-6 ">

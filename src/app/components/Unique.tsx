@@ -5,7 +5,7 @@ import Image from "next/image";
 export const Unique = () => {
     return (
         <div className="w-full  mt-16 bg-gray-50 py-10">
-            <div className="xl:max-w-7xl mx-auto  flex flex-col ">
+            <div className="2xl:max-w-7xl xl:max-w-6xl mx-auto  flex flex-col ">
                 <div className="w-full flex xl:justify-end md:justify-center lg:items-center">
                     <h1 className="lg:text-5xl md:text-4xl md:px-4 xl:px-0 lg:px-4 md:w-8/12 w-5/12 text-3xl px-6 xl:w-5/12 font-bold">Unique and Authentic Vintage Designer Jewellery</h1>
                 </div>

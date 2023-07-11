@@ -53,7 +53,7 @@ export default async function Products({params}:{params: {products: string} }) {
     
     return (
         <>
-        <Navbar />
+        
             <div className="w-full mt-[6.8rem] mb-[5rem]">
                 <div className='xl:max-w-7xl mx-auto'>
                 {data.map((item) => (
@@ -61,8 +61,6 @@ export default async function Products({params}:{params: {products: string} }) {
                 ))}
                 </div>
             </div>
-
-            <Footer />
         </>
     )
 }

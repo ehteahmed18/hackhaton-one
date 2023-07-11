@@ -29,7 +29,7 @@ export default function Navbar(){
                     ))
                     }
                     <li className="ml-2 lg:text-sm px-4 md:my-0 my-8"><input type="search" className="sm:hidden rounded-md px-2 sm:px-4 sm:pr-16 pr-10 md:block border border-black" placeholder="What you looking for"></input></li>
-                    <li><AiOutlineShoppingCart className="text-5xl m-auto bg-gray-100 rounded-full p-3"/></li>
+                    <li><a href="/cart"><AiOutlineShoppingCart className="text-5xl m-auto bg-gray-100 rounded-full p-3"/></a></li>
                 </ul>
             </div>
             

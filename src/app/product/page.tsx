@@ -35,7 +35,7 @@ export default async function Product() {
     // console.log(data)
     return (
         <>
-            <Navbar />
+            
             <div className="w-full ">
                 <div className="xl:max-w-6xl  mx-auto grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-2 gap-y-20 px-10 ssm:px-16  md:px-16 lg:px-6 xl:m-auto  pt-10 ">
                     {data.map((item) => (
@@ -50,7 +50,7 @@ export default async function Product() {
                     ))}
                 </div>
             </div>
-            <Footer/>
+            
         </>
     )
 }

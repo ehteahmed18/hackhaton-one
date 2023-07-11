@@ -11,14 +11,14 @@ export default function Home() {
   return (
     <>
       <div className=" bg-white w-full h-screen">
-        <Navbar/>
+        {/* <Navbar/> */}
         <Main/>
         <Event/>
         {/*@ts-ignore*/ }
         <Products/>
         <Unique/>
         <Newsletter/>
-        <Footer/>
+        {/* <Footer/> */}
       </div>
     </>
   )

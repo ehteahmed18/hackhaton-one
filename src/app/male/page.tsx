@@ -53,7 +53,7 @@ export default async function Product() {
                     ))}
                 </div>
             </div>
-            
+        <Footer/>
         </>
     )
 }

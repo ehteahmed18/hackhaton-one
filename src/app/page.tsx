@@ -18,7 +18,7 @@ export default function Home() {
         <Products/>
         <Unique/>
         <Newsletter/>
-        {/* <Footer/> */}
+        <Footer/>
       </div>
     </>
   )

@@ -1,10 +1,17 @@
+'use client'
+
 import React from "react"
 import { cookies } from "next/dist/client/components/headers"
-// import  Cookies  from "js-cookie";
 import { client } from "../../../sanity/lib/client"
 import {Image as IImage} from "sanity"
-// import { useState } from "react"
-// import cart from '../api/cart'
+import  Router  from "next/navigation"
+import Footer from "../components/Footer"
+import { useState, useEffect } from "react";
+import { productData, result } from "./cartProduct";
+import { urlForImage } from '../../../sanity/lib/image';
+import Image from "next/image";
+import { AiOutlineDelete } from "react-icons/ai"
+
 
 
 
@@ -18,79 +25,71 @@ interface IProduct {
     categoryName: string
 }
 
-let productData2: IProduct[] = []
 
-export default async function Cart() {
+export default function Cart() {
+  const [productData2, setProductData2] = useState<IProduct[]>([]);
 
+  useEffect(() => {
+    result.then((filteredProductId: any) => {
+      productData(filteredProductId).then((data: IProduct[]) => {
+        setProductData2(data);
+      });
+    });
+  }, []);
 
-
-
-
-    const handleAddToCart = async () => {
-        const cookieStore = cookies()
-        const userId = cookieStore.get('user_id')
-        console.log(userId)
-
-        const res = await fetch("http://localhost:3000/api/cart", {
-            method: 'GET',
-
-        })
-        const result = await res.json()
-
-        const filteredOrders = result.res.filter((order: any) => order.user_id === userId?.value)
-        const filteredProductId = filteredOrders.map((item: any) => item.product_id)
-        console.log(filteredProductId);
-        return filteredProductId
-    }
-    const result: Promise<any> =  handleAddToCart();
-
-
-    const productData = async (product_id: string[]) => {
-        const productIds = JSON.stringify(product_id);
-        let query = `*[_type=='product' && _id in ${productIds}] {
-        title,
-        image,
-        _id,
-        price,
-        ref,
-        description,
-        "categoryName":category -> name
-           }`
-        const res = await client.fetch(query)
-        console.log(product_id)
-        return res
-    }
-
-    result.then(async (filteredProductId) => {
-        console.log(filteredProductId);
-
-        productData2 = await productData(filteredProductId);
-        console.log(productData2);
-
-
-    })
-
-
-
-
-
-    return (
-
-        <>
-            <div>
-                aasd
-                {productData2.map((item: IProduct) => (
-
-                    <a href={item.ref} key={item._id} className=' border border-black min-w-[12.5rem] md:min-w-[15.625rem] max-w-[12.5rem] md:max-w-[15.625rem]   text-[1.05rem] mx-auto font-[600] leading-[24px] text-[#212121] md:min-h-[full] min-h-[331.81px]'>
-                        <p className='text-[1.05rem] mt-[0.5rem] font-[600] leading-[24px] text-[#212121]'>{item.title}</p>
-                        <p className='font-[600] text-[15px] leading-[15px] text-[#888] mt-[0.5rem]'>{item.categoryName}</p>
-                        <p className='text-[1.25rem] mt-4'>${item.price}.00</p>
-
-                    </a>
-
-                ))}
+  return (
+    <>
+      {productData2.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="w-full pt-10">
+          <div className="xl:max-w-5xl mx-auto text-2xl font-bold">
+            <h1>Shopping Cart</h1>
+          </div>
+        <div className="xl:max-w-5xl mx-auto flex flex-row  xl:gap-x-10">
+        <div className="grid grid-cols-1 xl:min-w-[70%]">
+          {productData2.map((item: IProduct) => (
+        <div className="flex flex-row py-6">
+          <div >
+          <Image src={urlForImage(item.image).url()} alt="product" width={200} height={100} className="sm:h-[200px] m-auto w-screen lg:w-[200px] md:w-[340px] rounded-lg" />
+          </div>
+            <div className="flex flex-col w-full pl-4 gap-y-4 ">
+              <div className="flex flex-row justify-between  w-full">
+                <p className="text-xl pb-2">{item.title}</p>
+                <a><AiOutlineDelete className="text-2xl"/></a>
+              </div>
+              <div>
+                <p>{item.categoryName}</p>
+              </div>
+              <div>
+                <p className="font-semibold">Delievery Estimation</p>
+              </div>
+              <div>
+                <p className="font-bold text-orange-400">5 Working Days</p>
+              </div>
+              <div>
+                <p className="text-xl">${item.price}.00</p>
+              </div>
             </div>
-        </>
-    )
-
+        </div>
+        ))}
+        </div>
+        <div className="xl:min-w-[25%] flex flex-col h-[250px]  px-4 py-6 justify-between bg-gray-50 rounded-lg">
+            <p className="text-xl font-semibold">Order Summary</p>
+            <div className="flex flex-row justify-between">
+              <p>Quantity</p>
+              <p>1 product</p>
+            </div>
+            <div className="flex flex-row justify-between">
+              <p>SubTotal</p>
+              <p>$225.00</p>
+            </div>
+            <button className="bg-black text-white px-4 py-2">Process to Checkout</button>
+        </div>
+        </div>
+        </div>
+      )}
+      <Footer />
+    </>
+  );
 }

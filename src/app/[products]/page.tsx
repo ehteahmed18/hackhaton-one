@@ -61,6 +61,8 @@ export default async function Products({params}:{params: {products: string} }) {
                 ))}
                 </div>
             </div>
+
+        <Footer/>
         </>
     )
 }

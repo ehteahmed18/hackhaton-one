@@ -27,8 +27,7 @@ let productData2: IProduct[] = []
         // const userId = cookieStore.get('user_id')
         // console.log(userId)
 
-        const res = await fetch('http://localhost:3000/api/cart', {
-          cache:"no-store",
+        const res = await fetch('/api/cart', {
            method: 'GET',
            
         })
@@ -58,43 +57,3 @@ let productData2: IProduct[] = []
        return res
        
     }
-
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//     const { user_id } = parseCookies(context);
-  
-//     const res = await fetch("http://localhost:3000/api/cart", {
-//       method: "GET",
-//     });
-//     const result = await res.json();
-  
-//     const filteredOrders = result.res.filter(
-//       (order: any) => order.user_id === user_id
-//     );
-//     const filteredProductId = filteredOrders.map((item: any) => item.product_id);
-  
-//     const productData = await getProductData(filteredProductId);
-  
-//     return {
-//       props: {
-//         productData2: productData,
-//       },
-//     };
-//   }
-  
-//   export const result: Promise<any> = getServerSideProps();
-
-//   export const getProductData = async (product_id: string[]) => {
-//     const productIds = JSON.stringify(product_id);
-//     const query = `*[_type=='product' && _id in ${productIds}] {
-//       title,
-//       image,
-//       _id,
-//       price,
-//       ref,
-//       description,
-//       "categoryName": category->name
-//     }`;
-  
-//     const res = await client.fetch(query);
-//     return res;
-//   }

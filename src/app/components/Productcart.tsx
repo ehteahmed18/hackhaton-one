@@ -6,6 +6,7 @@ import { Image as IImage } from 'sanity';
 import { urlForImage } from '../../../sanity/lib/image';
 import { data } from "autoprefixer";
 import { AiOutlineMinus, AiOutlinePlus,AiOutlineShoppingCart } from "react-icons/ai"
+import toast, { Toaster } from "react-hot-toast";
 
 interface IProduct {
     title: string,
@@ -25,6 +26,16 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
         const res = await fetch("/api/cart", {
             method: "POST",
             body: JSON.stringify({
+                product_id: item._id
+            })
+        })
+        toast.success("Product added to cart")
+    }
+    const handleToAdd = async() => {
+        const res = await fetch ("/api/cart", {
+            method : "PUT",
+            body : JSON.stringify({
+                quantity: 3,
                 product_id: item._id
             })
         })
@@ -59,9 +70,9 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
                         <div className="flex gap-8">
                             <h4 className="">Quantity: </h4>
                             <div className="flex items-center ">
-                                <AiOutlineMinus className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
+                                <AiOutlineMinus  className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
                                 <span className="">1</span>
-                                <AiOutlinePlus className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] border-2 border-black" />
+                                <AiOutlinePlus onClick={handleToAdd} className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] border-2 border-black" />
                             </div>
 
                         </div>
@@ -69,6 +80,7 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
                             <button onClick={handleToAddCart} className="w-[70%] p-3 text-base font-semibold  bg-black text-white flex items-center justify-center gap-2 text-startcol tracking-wider">
                                 <AiOutlineShoppingCart className='md:text-2xl text-xl' />
                                 Add to Cart</button>
+                                <Toaster/>
                             <p className="  font-[700] text-[1.5rem] leading-[30px] tracking-[0.1em]">${item.price}.00</p>
                         </div>
                     </div>

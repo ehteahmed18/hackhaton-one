@@ -1,14 +1,25 @@
 'use client'
 
 import React from "react"
-import {Image as IImage} from "sanity"
+import {Image as IImage, SESSION_ID} from "sanity"
 import Footer from "../components/Footer"
 import { useState, useEffect } from "react";
-import { productData, result } from "./cartProduct";
+import { productData, result, handleDelete  } from "./cartProduct";
 import { urlForImage } from '../../../sanity/lib/image';
 import Image from "next/image";
 import { AiOutlineDelete } from "react-icons/ai"
+import Cookies from "js-cookie";
+import getStripePromise from "../lib/stripe"
+import Stripe from "stripe";
 
+
+const products = [
+  {
+    name:"ABC",
+    price:200,
+    quantity:1,
+  }
+]
 
 
 
@@ -26,26 +37,59 @@ interface IProduct {
 
 export default function CartData() {
   const [productData2, setProductData2] = useState<IProduct[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     result.then((filteredProductId: any) => {
       productData(filteredProductId).then((data: IProduct[]) => {
         setProductData2(data);
-        console.log(data)
+        // console.log(data)
       });
     });
   }, []);
+  console.log(productData2);
   
   const subTotal = productData2.reduce((acc, item) => acc + item.price, 0);
 
-  // const handletoDelete = async() =>{
-  //   const res = await fetch ("/api/cart",{
-  //     method: "DELETE",
-  //     body: JSON.stringify({
-  //       product_id: ""
-  //     })
-  //   })
-  // }
+  const handletoDelete = async(productId:any) =>{
+    try{
+      setIsDeleting(true);
+      // const userId = Cookies.get('user_id');
+      // const res = await fetch('http://localhost:3000/api/cart', {
+      //     method: 'DELETE',
+      //     body: JSON.stringify({
+      //         product_id: item,
+      //         user_id: userId
+      //     }) 
+      // })
+      handleDelete(productId)
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+      setProductData2((prevProducts) =>
+        prevProducts.filter((product) => product._id !== productId) 
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    } finally {
+      setIsDeleting(false); // Set the deleting state back to false after the delay
+    }
+  }
+
+  
+  const handletoClick = async() =>{
+    const stripe = await getStripePromise();
+    const res = await fetch ("/api/stripesession",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      cache:"no-cache",
+      body: JSON.stringify(products)
+    });
+
+    const data = await res.json();
+    if(data.session){
+      stripe?.redirectToCheckout({sessionId: data.session.id})
+    }
+  };
+
 
   return (
     <>
@@ -66,7 +110,8 @@ export default function CartData() {
             <div className="flex flex-col w-full md:pl-8 gap-y-4 ">
               <div className="flex flex-row justify-between  w-full">
                 <p className="text-xl pb-2">{item.title}</p>
-                <button><AiOutlineDelete className="text-2xl"/></button>
+                <button ><AiOutlineDelete  onClick={() => handletoDelete(item._id)} className="text-2xl"/>
+                {isDeleting === true && <div>Loading...</div>}</button>
               </div>
               <div>
                 <p>{item.categoryName}</p>
@@ -94,7 +139,7 @@ export default function CartData() {
               <p>SubTotal</p>
               <p>${subTotal}</p>
             </div>
-            <button className="bg-black text-white px-4 py-2">Process to Checkout</button>
+            <button onClick={handletoClick} className="bg-black text-white px-4 py-2">Process to Checkout</button>
         </div>
         </div>
         </div>

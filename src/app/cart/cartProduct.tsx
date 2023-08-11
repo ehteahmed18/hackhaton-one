@@ -27,7 +27,7 @@ let productData2: IProduct[] = []
         // const userId = cookieStore.get('user_id')
         // console.log(userId)
 
-        const res = await fetch('/api/cart', {
+        const res = await fetch('http://localhost:3000/api/cart', {
            method: 'GET',
            
         })
@@ -54,6 +54,24 @@ let productData2: IProduct[] = []
            }`
         const res = await client.fetch(query)
        console.log(product_id)
+       console.log(res)
        return res
        
+    }
+
+    export  const handleDelete = async (item: any) => {
+        try{
+        const userId = Cookies.get('user_id');
+
+        const res = await fetch('http://localhost:3000/api/cart', {
+            method: 'DELETE',
+            body: JSON.stringify({
+                product_id: item,
+                user_id: userId
+            }) 
+        } )
+    }
+    catch(error){
+        
+    }
     }

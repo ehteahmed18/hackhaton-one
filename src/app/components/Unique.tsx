@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 
+
 export const Unique = () => {
     return (
         <div className="w-full  mt-16 bg-gray-50 py-10">

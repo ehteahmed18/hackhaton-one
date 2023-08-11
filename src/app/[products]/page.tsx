@@ -49,7 +49,7 @@ export default async function Products({params}:{params: {products: string} }) {
     // console.log(productData());
     
     const data: IProduct[] = await productData()
-    console.log(data);
+    // console.log(data);
     
     return (
         <>

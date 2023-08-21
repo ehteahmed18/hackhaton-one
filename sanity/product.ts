@@ -40,5 +40,10 @@ export const product = {
                 }
             ]
         },
+        {
+            name:"quantity",
+            title:"Quantity",
+            type:"number"
+        }
     ]
 }

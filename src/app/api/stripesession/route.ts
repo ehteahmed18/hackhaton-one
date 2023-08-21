@@ -21,19 +21,19 @@ export const POST = async(request:NextRequest) => {
                 payment_method_types:["card"],
                 billing_address_collection:"auto",
                 shipping_options:[
-                    {shipping_rate:"shr_1NdgEuEVjLZDoh47ID3Th9N7"},
-                    {shipping_rate:"shr_1NdgEUEVjLZDoh47CHBqfAM9"},
+                    {shipping_rate:"shr_1NgwY4EVjLZDoh47mM0q0XyZ"},
+                    {shipping_rate:"shr_1NgwWlEVjLZDoh47UBxz4Y3v"},
                 ],
                 line_items: res.map((item:any) => {
                     return{
                         price_data: {
-                            currency: "pkr",
+                            currency: "usd",
                             product_data: {
-                                name: item.name
+                                name: item.title
                             },
                             unit_amount: item.price *100,
-                            quantity: item.quantity
                         },
+                        quantity: item.quantity
                     }
                 }),
                 success_url: `${request.headers.get("origin")}/?success=true`,

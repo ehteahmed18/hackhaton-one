@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid"
 import { cookies } from "next/dist/client/components/headers"
 import { eq } from "drizzle-orm"
 
+
 export const GET = async (request: NextRequest) => {
     try {
         const res = await db.select().from(cartTable)
@@ -60,48 +61,17 @@ export const PUT = async (request:NextRequest) => {
     }
 }
 
-// export const DELETE = async (request: NextRequest) => {
-//     const req = await request.json();
-//     const user_id = cookies().get("user_id")
-//     if(!req.product_id){
-//         return NextResponse.json({message:"Product id is missing"})
-//     }
-
-//     try {
-//         const res = await db.delete(cartTable)
-//         .where(eq(
-//             cartTable.product_id, req.product_id
-//         )).returning();
-//         return NextResponse.json({res})
-//     } catch (error) {
-//         console.log(error);
-//         return NextResponse.json({ message: 'Something went wrong' });
-//     }
-// }
 
 
-export const  DELETE = async (request: NextRequest) => {
-    const user_id = cookies().get('user_id')?.value
-    const req = await request.json()
-    try {
+export const DELETE = async (request:NextRequest) => {
+    const req = await request.json();
+    try{
         const res = await db.delete(cartTable)
-        .where(eq(cartTable.product_id, req.product_id) || eq(cartTable.user_id, req.user_id)) 
-        console.log(res)
-        return NextResponse.json({ res })
-    } catch (error) {
-        
+        .where(eq(cartTable.product_id , req.product_id) || eq(cartTable.user_id, req.userId))
+        return NextResponse.json({res})
+    }
+    catch (error){
+        return NextResponse.json({error})
     }
 }
-
-// export const DELETE = async (request: NextRequest) => {
-//     try {
-//         console.log('Received request:', request); // Log the entire request for debugging
-//         const req = await request.json();
-//         console.log('Received JSON data:', req); // Log the received JSON data
-//         // Rest of your code...
-//     } catch (error) {
-//         console.error(error); // Log the error for debugging
-//         return NextResponse.json({ message: 'Something went wrong' });
-//     }
-// };
 

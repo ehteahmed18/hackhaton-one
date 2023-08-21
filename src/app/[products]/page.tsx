@@ -30,6 +30,7 @@ export default async function Products({params}:{params: {products: string} }) {
             price,
             reference,
             description,
+            quantity,
             "categoryName":category -> name
         }`)
         return res
@@ -43,7 +44,8 @@ export default async function Products({params}:{params: {products: string} }) {
         image: IImage,
         // ref: string,
         id: number,
-        _id: string
+        _id: string,
+        quantity: number
     
     }
     // console.log(productData());

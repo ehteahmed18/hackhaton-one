@@ -13,7 +13,8 @@ interface IProduct {
     _id: string,
     ref:string,
     description: string,
-    categoryName: string
+    categoryName: string,
+    quantity:number
 }
 
 
@@ -27,7 +28,8 @@ let productData2: IProduct[] = []
         // const userId = cookieStore.get('user_id')
         // console.log(userId)
 
-        const res = await fetch('http://localhost:3000/api/cart', {
+    
+        const res = await fetch("http://localhost:3000/api/cart", {
            method: 'GET',
            
         })
@@ -50,6 +52,7 @@ let productData2: IProduct[] = []
         price,
         ref,
         description,
+        quantity,
         "categoryName":category -> name
            }`
         const res = await client.fetch(query)
@@ -60,18 +63,24 @@ let productData2: IProduct[] = []
     }
 
     export  const handleDelete = async (item: any) => {
-        try{
+        console.log(item)
         const userId = Cookies.get('user_id');
+        console.log(userId)
 
-        const res = await fetch('http://localhost:3000/api/cart', {
-            method: 'DELETE',
+        const res = await fetch('/api/cart', {
+            method: "DELETE",
             body: JSON.stringify({
                 product_id: item,
-                user_id: userId
-            }) 
-        } )
+                user_id: userId,
+            }) ,
+        })
+        // return res;
     }
-    catch(error){
         
-    }
-    }
+
+
+
+
+
+
+

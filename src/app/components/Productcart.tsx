@@ -16,7 +16,8 @@ interface IProduct {
     image: IImage,
     // ref: string,
     id: number,
-    _id: string
+    _id: string,
+    quantity:number
 
 }
 
@@ -31,12 +32,21 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
         })
         toast.success("Product added to cart")
     }
-    const handleToAdd = async() => {
+    const handleToAdd = async(productId:string) => {
         const res = await fetch ("/api/cart", {
             method : "PUT",
             body : JSON.stringify({
-                quantity: 3,
-                product_id: item._id
+                quantity: item.quantity + 1,
+                product_id: productId
+            })
+        })
+    }
+    const handleToSub = async(productId:string) => {
+        const res = await fetch ("/api/cart", {
+            method : "PUT",
+            body : JSON.stringify({
+                quantity: item.quantity - 1,
+                product_id: productId
             })
         })
     }
@@ -70,9 +80,9 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
                         <div className="flex gap-8">
                             <h4 className="">Quantity: </h4>
                             <div className="flex items-center ">
-                                <AiOutlineMinus  className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
-                                <span className="">1</span>
-                                <AiOutlinePlus onClick={handleToAdd} className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] border-2 border-black" />
+                                <AiOutlineMinus onClick={() => handleToSub(item._id)}  className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
+                                <span className="">{item.quantity}</span>
+                                <AiOutlinePlus onClick={() => handleToAdd(item._id)} className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] border-2 border-black" />
                             </div>
 
                         </div>

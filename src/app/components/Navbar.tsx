@@ -9,7 +9,7 @@ export default function Navbar(){
     const list = [
         {name:"Female",link:"/female"},
         {name:"Male",link:"/male"},
-        {name:"Kids",link:"/"},
+        {name:"Kids",link:"/kids"},
         {name:"All Products",link:"/product"}
     ]
     const [open,setOpen] = useState(false)

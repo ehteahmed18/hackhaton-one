@@ -15,11 +15,11 @@ export default function Navbar(){
     const [open,setOpen] = useState(false)
     return(
         <div className="w-full top-0 left-0">
-            <div className="2xl:max-w-7xl xl:max-w-6xl w-full lg:flex xl:gap-x-4 lg:gap-x-12 mx-auto  items-center   bg-white py-6 md:px-6 px-7">
+            <div className="2xl:max-w-7xl xl:max-w-6xl w-full lg:flex xl:gap-x-4 lg:space-x-14 mx-auto  items-center   bg-white py-6 md:px-6 lg:px-3 px-7">
                 <a href="/" className=" flex font-bold  xl:text-2xl text-lg items-center xl:pr-16 "> 
-                <Image src="/Logo.png" alt="" width={150} height={100} className="lg:w-[100px] xl:w-[150px]" />
+                <Image src="/Logo.png" alt="" width={150} height={100} className="lg:w-[80px] xl:w-[150px]" />
                 </a>
-                <div onClick={() => setOpen(!open)} className="md:text-3xl text-2xl absolute sm:right-12 right-8 md:top-6 top-7 lg:hidden">{open ? <AiOutlineClose/> : <AiOutlineMenu/> }</div>
+                <div onClick={() => setOpen(!open)} className="md:text-3xl text-2xl absolute sm:right-12 right-6 md:top-6 top-7 lg:hidden">{open ? <AiOutlineClose/> : <AiOutlineMenu/> }</div>
                 <ul className={`lg:flex lg:items-center xl:gap-x-8 lg:gap-x-4 lg:pb-0 pb-4 absolute lg:static bg-white lg:z-auto z-[1] left-0 w-full lg:w-auto lg:pl-0 transition-all duration-500 ease-in k ${open ? 'top-20 opacity-100':'top-[-490px]'}  opacity-100`}>
                     {
                     list.map((link) => (

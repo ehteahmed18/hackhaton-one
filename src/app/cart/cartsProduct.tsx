@@ -13,15 +13,6 @@ import getStripePromise from "../lib/stripe"
 import Stripe from "stripe";
 
 
-const products = [
-  {
-    name: "ABC",
-    price: 200,
-    quantity: 1,
-  }
-]
-
-
 
 
 interface IProduct {
@@ -36,46 +27,39 @@ interface IProduct {
 }
 
 
-export default function CartData() {
+export default function CartData({quan}:{quan?:number}) {
   const [productData2, setProductData2] = useState<IProduct[]>([]);
   const [dataLoaded, setDataLoaded] = useState(false)
+  const [Quan, setQuan] = useState(0)
 
   useEffect(() => {
     setTimeout(() => {
       setDataLoaded(true);
-    }, 1500)
+    }, 1800)
   }, [])
 
   useEffect(() => {
-    result.then((filteredProductId: any) => {
-      productData(filteredProductId).then((data: IProduct[]) => {
-        setProductData2(data);
-        // console.log(data)
+
+    result.then((cartItems: any) => {      
+      const productIds = cartItems.map((item: any) => item.product_id)
+      productData(productIds).then(async (data: IProduct[]) => {           
+        try{
+          const productsWithQuantity = data.map((product) => {
+            const cartItem = cartItems.find((item: any) => item.product_id === product._id);
+            return{
+              ...product,
+              quantity: cartItem.quantity,
+            }
+          });
+          setProductData2(productsWithQuantity)
+        }catch(error){
+        }
       });
     });
   }, []);
   console.log(productData2);
 
-  const calculateTotalProductPrice = (item: IProduct) => {
-    return item.price * item.quantity;
-  };
-  
-  const subTotal = productData2.reduce((acc, item) => acc + calculateTotalProductPrice(item), 0);
-
-  const handletoDelete = async (productId: string) => {
-    try {
-      
-      handleDelete(productId)
-      // await new Promise((resolve) => setTimeout(resolve, 3000))
-      setProductData2((prevProducts) =>
-        prevProducts.filter((product) => product._id !== productId)
-      );
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  }
-
-  const handleIncQuantity = async (productId: string,quan:number) => {
+  const handleIncQuantity = (productId: string) => {
     setProductData2((prevProducts) =>
       prevProducts.map((product) =>
         product._id === productId
@@ -83,16 +67,9 @@ export default function CartData() {
           : product
       )
     );
-    const res = await fetch ("/api/cart",{
-      method:"PUT",
-      body: JSON.stringify({
-        quantity: quan+1,
-        product_id:productId
-      })
-    })
   };
 
-  const handleDecQuantity = async (productId: string,quan:number) => {
+  const handleDecQuantity = (productId: string) => {
     setProductData2((prevProducts) =>
       prevProducts.map((product) =>
         product._id === productId && product.quantity > 1
@@ -100,16 +77,26 @@ export default function CartData() {
           : product
       )
     );
-    if(quan > 1){
-    const res = await fetch ("/api/cart",{
-      method:"PUT",
-      body: JSON.stringify({
-        quantity: quan-1,
-        product_id:productId
-      })
-    })
+  };
+
+  const calculateTotalProductPrice = (item: IProduct) => {
+    return item.price * item.quantity;
+  };
+  
+
+  const subTotal = productData2.reduce((acc, item) => acc + calculateTotalProductPrice(item), 0);
+
+  const handletoDelete = async (productId: string) => {
+    try {
+      
+      handleDelete(productId)
+      setProductData2((prevProducts) =>
+        prevProducts.filter((product) => product._id !== productId)
+      );
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   }
-  };  
 
 
   const handletoClick = async () => {
@@ -138,14 +125,14 @@ export default function CartData() {
       {productData2.length === 0 ? (
         <p className="lg:max-w-5xl mx-auto flex py-10 justify-center text-4xl font-bold">Your Cart is Empty</p>
       ) : (
-        <div className="xl:max-w-5xl mx-auto flex flex-row   flex-wrap lg:flex-nowrap  lg:gap-x-10">
+        <div className="xl:max-w-5xl mx-auto flex flex-row   flex-wrap lg:flex-nowrap  lg:space-x-10">
           <div className="grid grid-cols-1 xl:min-w-[70%] lg:min-w-[60%]">
             {productData2.map((item: IProduct) => (
-              <div key={item._id} className="flex flex-row md:flex-nowrap flex-wrap py-6 gap-y-6">
+              <div key={item._id} className="flex flex-row md:flex-nowrap flex-wrap py-6 space-y-0">
                 <div >
                   <Image src={urlForImage(item.image).url()} alt="product" width={200} height={100} className="sm:h-[200px] m-auto  lg:w-[200px] md:w-[340px] rounded-lg " />
                 </div>
-                <div className="flex flex-col w-full md:pl-8 gap-y-4 ">
+                <div className="flex flex-col w-full md:pl-6 space-y-4 ">
                   <div className="flex flex-row justify-between  w-full">
                     <p className="text-xl pb-2">{item.title}</p>
                     <button ><AiOutlineDelete onClick={() => handletoDelete(item._id)} className="text-2xl" />
@@ -163,9 +150,9 @@ export default function CartData() {
                   <div className="flex justify-between">
                     <p className="text-xl font-bold">${item.price}.00</p>
                     <div className="flex">
-                    <AiOutlineMinus onClick={() => handleDecQuantity(item._id,item.quantity)} className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
+                    <AiOutlineMinus onClick={() => handleDecQuantity(item._id)} className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
                     <span className="">{item.quantity}</span>
-                    <AiOutlinePlus onClick={() => handleIncQuantity(item._id,item.quantity)} className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] -2 -black" />
+                    <AiOutlinePlus onClick={() => handleIncQuantity(item._id)} className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] -2 -black" />
                     </div>
                   </div>
                 </div>

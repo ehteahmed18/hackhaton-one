@@ -16,29 +16,29 @@ interface IProduct {
     categoryName: string,
     quantity:number
 }
-
+interface IData {
+    user_id: string,
+    product_id: string,
+     quantity: number
+}
 
 
 let productData2: IProduct[] = [] 
     const handleAddToCart = async () => {
-        // // const cookieStore =  cookies()
         const userId = Cookies.get('user_id');
-        console.log(userId)
-        // const cookieStore = cookies()
-        // const userId = cookieStore.get('user_id')
-        // console.log(userId)
-
-    
-        const res = await fetch("http://localhost:3000/api/cart", {
-           method: 'GET',
-           
+   
+        const res = await fetch('https://e-commerce-website-ehtexhamahmed2000-gmailcom.vercel.app/api/cart', {
+           method: 'GET',      
         })
         const result = await res.json()
-        
         const filteredOrders = result.res.filter((order: any) => order.user_id === userId)
-        const filteredProductId = filteredOrders.map((item: any) => item.product_id)
-        console.log(filteredProductId);
-        return filteredProductId
+        console.log(filteredOrders);
+        
+        const cartItems = filteredOrders.map((item: IData) => ({
+            product_id: item.product_id,
+            quantity: item.quantity,
+          }));
+          return cartItems;
     }
     export const result: Promise<any> = handleAddToCart();
 

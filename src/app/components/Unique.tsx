@@ -36,7 +36,7 @@ export const Unique = () => {
                         </div>
                         <div className=" lg:max-w-[60%] xl:max-w-[50%] md:max-w-[50%] md:py-4 py-8 xl:py-2 flex flex-col space-y-10 items-start md:justify-center">
                             <p>This piece is ethically crafted in our small family-owned workshop in Peru with unmatched attention to detail and care. The Natural color is the actual natural color of the fiber, undyed and 100% traceable.</p>
-                            <button  className="xl:max-w-[50%] md:w-[40%] w-[50%] bg-gray-900 text-white text-center p-3 text-sm border-2 border-t-gray-500 border-l-gray-500 border-r-black border-b-black"><a href="/products">See All Products</a></button>
+                            <button  className="xl:max-w-[50%] md:w-[40%] w-[50%] bg-gray-900 text-white text-center p-3 text-sm border-2 border-t-gray-500 border-l-gray-500 border-r-black border-b-black"><a href="/product">See All Products</a></button>
                         </div>
                     </div>
                 </div>

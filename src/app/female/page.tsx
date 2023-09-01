@@ -40,7 +40,7 @@ export default async function Product() {
         <>
             
             <div className="w-full ">
-                <div className="xl:max-w-6xl  mx-auto grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-2 gap-y-20 px-10 ssm:px-16  md:px-16 lg:px-6 xl:m-auto  pt-10 ">
+                <div className="xl:max-w-6xl border border-black grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-x-2 gap-y-20 px-10 ssm:px-16  md:px-16 lg:px-6 xl:m-auto  pt-10  ">
                     {data1.map((item) => (
                         <a href={item.ref} key={item._id} className="lg:w-9/12 md:w-11/12 ">
                             <div  className="   flex flex-col items-start justify-center  ">

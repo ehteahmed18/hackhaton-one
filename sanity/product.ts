@@ -21,6 +21,21 @@ export const product = {
             type:"image"
         },
         {
+            name:"image2",
+            title:"Product Image 2",
+            type:"image"
+        },
+        {
+            name:"image3",
+            title:"Product Image 3",
+            type:"image"
+        },
+        {
+            name:"image4",
+            title:"Product Image 4",
+            type:"image"
+        },
+        {
             name:"price",
             title:"Product Price",
             type:"number"

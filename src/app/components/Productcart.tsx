@@ -5,7 +5,7 @@ import { client } from '../../../sanity/lib/client'
 import { Image as IImage } from 'sanity';
 import { urlForImage } from '../../../sanity/lib/image';
 import { data } from "autoprefixer";
-import { AiOutlineMinus, AiOutlinePlus,AiOutlineShoppingCart } from "react-icons/ai"
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineShoppingCart } from "react-icons/ai"
 import toast, { Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 
@@ -15,54 +15,72 @@ interface IProduct {
     price: number,
     description: string,
     image: IImage,
-    // ref: string,
+    image2: IImage,
+    image3: IImage,
+    image4: IImage,
     id: number,
     _id: string,
-    quantity:number
+    quantity: number
 
 }
 
 export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
 
     const [quan, setQuan] = useState(1)
+    const [data, setData] = useState(item.image)
     const handleToAdd = (productId: string) => {
-        if(item._id === productId){
+        if (item._id === productId) {
             setQuan(quan + 1)
         }
     }
     const handleToSub = (productId: string) => {
-        if(item._id === productId && quan > 1){
+        if (item._id === productId && quan > 1) {
             setQuan(quan - 1)
         }
     }
 
 
     const handleToAddCart = async () => {
-        try{
-        const res = await fetch("/api/cart", {
-            method: "POST",
-            body: JSON.stringify({
-                product_id: item._id,
-                quantity: quan
+        try {
+            const res = await fetch("/api/cart", {
+                method: "POST",
+                body: JSON.stringify({
+                    product_id: item._id,
+                    quantity: quan
+                })
             })
-        })
-        toast.success("Product added to cart")
+            toast.success("Product added to cart")
+        }
+        catch (error) {
+            console.log({ error })
+        }
     }
-    catch(error){
-        console.log({error})
-    }
-    }
-    
+
     return (
         <>
             <div key={item.id} className="py-[4] xl:px-[8rem] md:px-[4rem] px-4">
                 <div className="lg:flex-row flex-col flex lg:space-x-10 space-x-0  ">
                     <div className="flex flex-wrap-reverse min-w-[55%]  lg:flex-nowrap  lg:gap-x-8 gap-x-0 lg:space-y-0 gap-y-4">
-                        <div className="flex flex-col gap-4">
-                            <Image className="h-[60px] min-w-[60px] md:min-w-[100px] md:h-[100px] cursor-pointer" src={urlForImage(item.image).url()} alt="" width="50" height="100"/>
+                        <div className="flex lg:flex-col gap-4">
+                            <Image onClick={() => setData(item.image)} className="lg:h-[80px] lg:min-w-[80px] md:min-w-[100px] md:h-[100px] cursor-pointer" src={urlForImage(item.image).url()} alt="" width="50" height="80" />
+                            <Image onClick={() => setData(item.image2)} className={`lg:h-[80px] lg:min-w-[80px] md:min-w-[100px] md:h-[100px] cursor-pointer ${urlForImage(item.image).url() === urlForImage(item.image2).url()
+                                ? "opacity-0"
+                                : "opacity-100"
+                                }`}
+                                src={urlForImage(item.image2).url()} alt="" width="50" height="100" />
+                            <Image onClick={() => setData(item.image3)} className={`lg:h-[80px] lg:min-w-[80px] md:min-w-[100px] md:h-[100px] cursor-pointer ${urlForImage(item.image).url() === urlForImage(item.image3).url()
+                                    ? "opacity-0"
+                                    : "opacity-100"
+                                }`} 
+                                src={urlForImage(item.image3).url()} alt="" width="50" height="100" />
+                            <Image onClick={() => setData(item.image4)} className={`lg:h-[80px] lg:min-w-[80px] md:min-w-[100px] md:h-[100px] cursor-pointer ${urlForImage(item.image).url() === urlForImage(item.image4).url()
+                                    ? "opacity-0"
+                                    : "opacity-100"
+                                }`} 
+                                src={urlForImage(item.image4).url()} alt="" width="50" height="100" />
                         </div>
                         <div className=" h-full w-full">
-                            <Image className=" h-full w-full" src={urlForImage(item.image).url()} alt="" width={200} height={500} />
+                            <Image className=" h-full w-full" src={urlForImage(data).url()} alt="" width={200} height={500} />
                         </div>
                     </div>
                     <div className="flex flex-col lg:gap-10 gap-0 space-y-10 lg:space-y-0 py-10 lg:py-0 lg:max-w-[35%]   ">
@@ -83,10 +101,10 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
                         <div className="flex gap-8">
                             <h4 className="">Quantity: </h4>
                             <div className="flex items-center ">
-                                <AiOutlineMinus onClick={() => handleToSub(item._id)}  className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
+                                <AiOutlineMinus onClick={() => handleToSub(item._id)} className="mr-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] " />
                                 <span className="">{quan}</span>
                                 <AiOutlinePlus onClick={() => handleToAdd(item._id)} className="ml-[10px] cursor-pointer bg-[#f1f1f1] rounded-[50%] p-1 w-[30px] h-[30px] border-2 border-black" />
-                                
+
                             </div>
 
                         </div>
@@ -94,7 +112,7 @@ export const ProductCart: FC<{ item: IProduct }> = ({ item }) => {
                             <button onClick={handleToAddCart} className="w-[70%] p-3 text-base font-semibold  bg-black text-white flex items-center justify-center gap-2 text-startcol tracking-wider">
                                 <AiOutlineShoppingCart className='md:text-2xl text-xl' />
                                 Add to Cart</button>
-                                <Toaster/>
+                            <Toaster />
                             <p className="  font-[700] text-[1.5rem] leading-[30px] tracking-[0.1em]">${item.price}.00</p>
                         </div>
                     </div>

@@ -28,14 +28,16 @@ export default function Event(){
                     <div className="sm:w-6/12 w-full  bg-0-event_color_1 pt-6">
                         <div className="flex flex-col ml-4">
                             <p className="text-md">Flex Sweatshirt</p>
-                            <p className="text-lg font-bold "><span className=" font-normal mr-2">$100.00</span>$75.00</p>
+                            <div className="flex ">
+                            <div className=" font-normal text-lg mr-2">$100.00<div className=" w-18 mt-[-16px] border-opacity-70 border-black border"></div></div><div className="text-lg font-bold ">$75.00</div></div>
                         </div>
                         <Image src="/event2.png" alt="" width={280} height={380} className="h-[365px] m-auto"/>
                     </div>
                     <div className="sm:w-6/12 w-full bg-0-event_color_2 pt-6">
                         <div className="flex flex-col ml-4">
                             <p className="text-md">Flex Push Button Bomber</p>
-                            <p className="text-lg font-bold "><span className=" font-normal mr-2">$225.00</span>$190.00</p>
+                            <div className="flex ">
+                            <div className=" font-normal text-lg mr-2">$225.00<div className=" w-18 mt-[-16px] border-opacity-70 border-black border"></div></div><div className="text-lg font-bold ">$190.00</div></div>
                         </div>
                         <Image src="/event3.png" alt="" width={280} height={380} className="m-auto"/>
                     </div>
